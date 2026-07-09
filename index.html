@@ -1024,6 +1024,24 @@ section { padding: var(--section-py) 0; }
       <h2>60秒产品演示分镜</h2>
       <p>通过6个关键场景，讲述OneTouch AI如何融入日常生活的每一个瞬间。</p>
     </div>
+    <!-- Promo Video Player -->
+    <div class="video-showcase fade-up" style="display:flex;flex-direction:column;align-items:center;margin-bottom:56px;">
+      <div style="position:relative;width:320px;max-width:90%;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card), 0 8px 32px rgba(0,0,0,0.12);background:#000;">
+        <video id="promo-video" preload="metadata" playsinline style="width:100%;display:block;aspect-ratio:9/16;object-fit:cover;" poster="">
+          <source src="onetouch-ai-moments.mp4" type="video/mp4">
+        </video>
+        <button id="video-play-btn" onclick="var v=document.getElementById('promo-video');if(v.paused){v.play();this.style.display='none';}else{v.pause();this.style.display='flex';}" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);cursor:pointer;border:none;transition:opacity 0.3s;" aria-label="播放视频">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="30" fill="rgba(232,83,63,0.85)"/><polygon points="26,20 46,32 26,44" fill="#fff"/></svg>
+        </button>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:16px;align-items:center;">
+        <a href="onetouch-ai-moments.mp4" download class="btn-secondary" style="font-size:13px;padding:10px 20px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          下载宣传视频 (2.7MB)
+        </a>
+        <span class="caption" style="font-size:12px;">9:16 竖屏 · 30秒 · 适配微信视频号</span>
+      </div>
+    </div>
     <div class="mvp-timeline">
       <div class="mvp-card fade-up">
         <div class="mvp-card-visual">
@@ -1289,6 +1307,15 @@ themeToggle.addEventListener('click', () => {
   const current = html.getAttribute('data-theme');
   html.setAttribute('data-theme', current === 'dark' ? '' : 'dark');
 });
+
+// Video ended handler - show play button again
+var promoVideo = document.getElementById('promo-video');
+if (promoVideo) {
+  promoVideo.addEventListener('ended', function() {
+    var btn = document.getElementById('video-play-btn');
+    if (btn) btn.style.display = 'flex';
+  });
+}
 
 // Smooth scroll for nav links
 document.querySelectorAll('a[href^="#"]').forEach(link => {
